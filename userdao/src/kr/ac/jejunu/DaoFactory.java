@@ -10,11 +10,19 @@ import org.springframework.context.annotation.Configuration;
 public class DaoFactory {
     @Bean
     public UserDao userDao() {
-        return new UserDao(connectionMaker());
+        UserDao userDao = new UserDao();
+        userDao.setConnectionMaker(connectionMaker());
+
+        return userDao;
     }
 
     @Bean
     public ConnectionMaker connectionMaker() {
-        return new JejuConnectionMaker();
+        JejuConnectionMaker connectionMaker = new JejuConnectionMaker();
+        connectionMaker.setPassword("qkqh1125");
+        connectionMaker.setClassName("org.mariadb.jdbc.Driver");
+        connectionMaker.setUrl("jdbc:mysql://localhost:3306/test?characterEncoding=utf-8");
+        connectionMaker.setUser("root");
+        return connectionMaker;
     }
 }
