@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -20,22 +21,22 @@ public class UserDaoTest {
     @Before
     public void setup() {
 //        daoFactory = new DaoFactory();
-        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-//        ApplicationContext context = new GenericXmlApplicationContext("daoFactory.xml");
+//        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        ApplicationContext context = new GenericXmlApplicationContext("daoFactory.xml");
         userDao = context.getBean("userDao", UserDao.class);
     }
 
-    @Test
-    public void get() throws Exception {
-        Long id = 1L;
-        String name = "은형";
-        String password = "1111";
-
-        User user = userDao.get(id);
-        assertThat(id, is(user.getId()));
-        assertThat(name, is(user.getName()));
-        assertThat(password, is(user.getPassword()));
-    }
+//    @Test
+//    public void get() throws Exception {
+//        Long id = 1L;
+//        String name = "은형";
+//        String password = "1111";
+//
+//        User user = userDao.get(id);
+//        assertThat(id, is(user.getId()));
+//        assertThat(name, is(user.getName()));
+//        assertThat(password, is(user.getPassword()));
+//    }
 
     @Test
     public void add() throws SQLException, ClassNotFoundException {
