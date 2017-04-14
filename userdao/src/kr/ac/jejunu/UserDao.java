@@ -5,10 +5,10 @@ import java.sql.*;
 /**
  * Created by Boobby on 17-4-14.
  */
-public class UserDao {
+public abstract class UserDao {
     public User get(Long id) throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8", "root", "qkqh1125");
+        Connection connection = getConnection();
+
         PreparedStatement preparedStatement = connection.prepareStatement("select * from userinfo where id = ?");
 
         preparedStatement.setLong(1, id);
@@ -30,8 +30,7 @@ public class UserDao {
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8", "root", "qkqh1125");
+        Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("insert into userinfo VALUES (?, ?, ?)");
 
         preparedStatement.setLong(1, user.getId());
@@ -43,4 +42,10 @@ public class UserDao {
         preparedStatement.close();
         connection.close();
     }
+
+    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+//    {
+//        Class.forName("org.mariadb.jdbc.Driver");
+//        return DriverManager.getConnection("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8", "root", "qkqh1125");
+//    }
 }

@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class UserDaoTest {
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+        UserDao userDao = new NUserDao();
         Long id = 1L;
         User user = userDao.get(id);
 
@@ -28,7 +28,7 @@ public class UserDaoTest {
 
     @Test
     public void add() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+        UserDao userDao = new NUserDao();
         Long id = Long.valueOf(new Random().nextInt());
         String name = "Boooo";
         String password = "123123";
