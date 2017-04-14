@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class UserDaoTest {
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new NUserDao();
+        UserDao userDao = new UserDao(new NConnectioinMaker());
         Long id = 1L;
         User user = userDao.get(id);
 
@@ -28,7 +28,7 @@ public class UserDaoTest {
 
     @Test
     public void add() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new NUserDao();
+        UserDao userDao = new UserDao(new NConnectioinMaker());
         Long id = Long.valueOf(new Random().nextInt());
         String name = "Boooo";
         String password = "123123";
@@ -46,5 +46,4 @@ public class UserDaoTest {
         assertThat(addedUser.getName(), is(name));
         assertThat(addedUser.getPassword(), is(password));
     }
-
 }

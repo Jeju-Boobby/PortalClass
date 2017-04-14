@@ -5,9 +5,15 @@ import java.sql.*;
 /**
  * Created by Boobby on 17-4-14.
  */
-public abstract class UserDao {
+public class UserDao {
+    ConnectioinMaker connectioinMaker;
+
+    public UserDao(ConnectioinMaker connectioinMaker) {
+        this.connectioinMaker = connectioinMaker;
+    }
+
     public User get(Long id) throws ClassNotFoundException, SQLException {
-        Connection connection = getConnection();
+        Connection connection = connectioinMaker.getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement("select * from userinfo where id = ?");
 
@@ -30,7 +36,7 @@ public abstract class UserDao {
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection connection = getConnection();
+        Connection connection = connectioinMaker.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("insert into userinfo VALUES (?, ?, ?)");
 
         preparedStatement.setLong(1, user.getId());
@@ -43,7 +49,7 @@ public abstract class UserDao {
         connection.close();
     }
 
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+//    public Connection getConnection() throws ClassNotFoundException, SQLException;
 //    {
 //        Class.forName("org.mariadb.jdbc.Driver");
 //        return DriverManager.getConnection("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8", "root", "qkqh1125");
