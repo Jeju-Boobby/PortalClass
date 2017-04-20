@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Created by Boobby on 17-4-20.
  */
-public class DUserDao extends UserDao{
+public class NConnectionMaker implements ConnectionMaker {
     @Override
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.mariadb.jdbc.Driver");

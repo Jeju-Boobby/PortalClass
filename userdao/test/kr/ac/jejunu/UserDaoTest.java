@@ -15,7 +15,7 @@ public class UserDaoTest {
 
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new NUserDao();
+        UserDao userDao = new UserDao(new NConnectionMaker());
         Long id = 1L;
         String name = "부은형";
         String password = "111111";
@@ -29,7 +29,7 @@ public class UserDaoTest {
 
     @Test
     public void add() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new NUserDao();
+        UserDao userDao = new UserDao(new NConnectionMaker());
         Long id = Long.valueOf(new Random().nextInt());
         String name = "Booooooooooooooo";
         String password = "123123123";
