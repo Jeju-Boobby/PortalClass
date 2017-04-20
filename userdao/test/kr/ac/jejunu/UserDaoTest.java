@@ -1,5 +1,6 @@
 package kr.ac.jejunu;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -12,10 +13,16 @@ import static org.junit.Assert.*;
  * Created by Boobby on 17-4-20.
  */
 public class UserDaoTest {
+    DaoFactory daoFactory;
+
+    @Before
+    public void setup() {
+        daoFactory = new DaoFactory();
+    }
 
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao(new NConnectionMaker());
+        UserDao userDao = daoFactory.getUserDao();
         Long id = 1L;
         String name = "부은형";
         String password = "111111";
@@ -29,7 +36,7 @@ public class UserDaoTest {
 
     @Test
     public void add() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao(new NConnectionMaker());
+        UserDao userDao = daoFactory.getUserDao();
         Long id = Long.valueOf(new Random().nextInt());
         String name = "Booooooooooooooo";
         String password = "123123123";
