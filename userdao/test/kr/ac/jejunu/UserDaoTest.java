@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 
 /**
  * Created by Boobby on 17-4-20.
  */
 public class UserDaoTest {
-//    DaoFactory daoFactory;
+    //    DaoFactory daoFactory;
     UserDao userDao;
 
     @Before
@@ -58,6 +59,23 @@ public class UserDaoTest {
         assertThat(addedUser.getId(), is(id));
         assertThat(addedUser.getName(), is(name));
         assertThat(addedUser.getPassword(), is(password));
+    }
+
+    @Test
+    public void delete() throws SQLException, ClassNotFoundException {
+        Long id = Long.valueOf(new Random().nextInt());
+        String name = "가나다라마바사";
+        String password = "7777";
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+
+        userDao.add(user);
+        userDao.delete(id);
+        User deletedUser = userDao.get(id);
+
+        assertThat(deletedUser, nullValue());
     }
 
 }
