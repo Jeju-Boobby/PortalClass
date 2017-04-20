@@ -8,9 +8,14 @@ import java.sql.SQLException;
  * Created by Boobby on 17-4-20.
  */
 public class StatementStrategyForAdd implements StatementStrategy {
+    private User user;
+
+    public StatementStrategyForAdd(User user) {
+        this.user = user;
+    }
+
     @Override
-    public PreparedStatement getPreparedStatement(Object object, Connection connection) throws SQLException {
-        User user = (User) object;
+    public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("insert into userinfo VALUES (?, ?, ?)");
         preparedStatement.setLong(1, user.getId());
         preparedStatement.setString(2, user.getName());
