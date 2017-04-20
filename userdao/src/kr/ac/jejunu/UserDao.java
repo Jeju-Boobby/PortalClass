@@ -20,9 +20,8 @@ public class UserDao {
         User user = null;
         try {
             connection = dataSource.getConnection();
-
-            preparedStatement = connection.prepareStatement("select * from userinfo where id = ?");
-            preparedStatement.setLong(1, id);
+            StatementStrategy statementStrategy = new StatementStrategyForGet();
+            preparedStatement = statementStrategy.getPreparedStatement(id, connection);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -67,11 +66,8 @@ public class UserDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-
-            preparedStatement = connection.prepareStatement("insert into userinfo VALUES (?, ?, ?)");
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getPassword());
+            StatementStrategy statementStrategy = new StatementStrategyForAdd();
+            preparedStatement = statementStrategy.getPreparedStatement(user, connection);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -101,8 +97,8 @@ public class UserDao {
         try {
             connection = dataSource.getConnection();
 
-            preparedStatement = connection.prepareStatement("delete from userinfo WHERE id = ?");
-            preparedStatement.setLong(1, id);
+            StatementStrategy statementStrategy = new StatementStrategyForUpdate();
+            preparedStatement = statementStrategy.getPreparedStatement(id, connection);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -125,10 +121,4 @@ public class UserDao {
             }
         }
     }
-
-//    public Connection getConnection() throws ClassNotFoundException, SQLException;
-//    {
-//        Class.forName("org.mariadb.jdbc.Driver");
-//        return DriverManager.getConnection("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8", "root", "qkqh1125");
-//    }
 }
