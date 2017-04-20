@@ -11,13 +11,18 @@ public class DaoFactory {
 
     @Bean
     public UserDao userDao() {
-        UserDao userDao  = new UserDao(connectionMaker());
+        UserDao userDao  = new UserDao();
+        userDao.setConnectionMaker(connectionMaker());
         return userDao;
     }
 
     @Bean
     public ConnectionMaker connectionMaker() {
-        ConnectionMaker connectionMaker = new NConnectionMaker();
+        NConnectionMaker connectionMaker = new NConnectionMaker();
+        connectionMaker.setClassName("org.mariadb.jdbc.Driver");
+        connectionMaker.setUrl("jdbc:mysql://localhost:3306/portal?characterEncoding=utf-8");
+        connectionMaker.setUser("root");
+        connectionMaker.setPassword("qkqh1125");
         return connectionMaker;
     }
 }
